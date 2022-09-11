@@ -31,7 +31,7 @@ public:
         int n= nums.size();
         int ans = 0;
         
-        set<int> numSet;
+        unordered_set<int> numSet;
         for(int i: nums)
             numSet.insert(i);
         
