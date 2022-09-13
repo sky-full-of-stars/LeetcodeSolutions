@@ -22,7 +22,15 @@ public:
                     mp[s[lo]]--;
                     if(mp[s[lo]] == 0) 
                     {
-                        mp.erase(s[lo]);
+                        mp.erase(s[lo]); 
+                    }
+                    else
+                    {
+                        // no need to remove char from mp if its current elements duplicate element. it'll just become mp[curEle]=1
+                        // other equivalent of if block is : if(s[lo]!=s[hi]){mp.erase[s[lo]];}
+                        // that means erase completely from map only if its not cur element.
+                        
+                        // you can also erase current element and then add mp[s[hi]]++ in the end. even that should work. 
                     }
                     lo++;
                 }
