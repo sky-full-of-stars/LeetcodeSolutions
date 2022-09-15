@@ -1,74 +1,26 @@
 class Solution {
 private:
-    vector<string> allCombination;
-    map<char,char> isMatch;
-    void generateAllCombination(int n, string str)
-    {
-        if(n==0)
+    void generate(vector<string> &ans, string curString, int openRemaining, int closeRemaining)
+    {   
+        if(openRemaining == 0 and closeRemaining == 0)
         {
-            allCombination.push_back(str);
+            ans.push_back(curString);
             return;
         }
-        generateAllCombination(n-1, str +"(");
-        generateAllCombination(n-1, str +")");
-    }
-    bool isOpen(char c)
-    {
-        return ( c == '(');
-    }
-    void init()
-    {
-        isMatch['('] = ')';
-    }
-    bool isValid(string str)
-    {
-        stack<char> s;
-        init();
-        int n = str.size();
-        
-        for(int i=0;i<n;i++)
+        if(openRemaining > 0)
         {
-            char cur = str[i];
-            if(isOpen(cur))
-            {
-                s.push(cur);
-            }
-            else 
-            {
-                if(s.empty())
-                {
-                    return false;
-                }
-                char top = s.top();
-                if(isMatch[top] == cur)
-                {
-                    s.pop();
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            generate(ans, curString + "(" , openRemaining-1, closeRemaining);
         }
-        if(!s.empty())
+        if(closeRemaining > openRemaining)
         {
-            return false;
+            generate(ans, curString + ")", openRemaining, closeRemaining-1);
         }
-        return true;
-    }
-    vector<string> filterValidOnes(vector<string> all)
-    {
-        vector<string> ans;
-        for(string each: all)
-            if(isValid(each))
-                ans.push_back(each);
-        return ans;
     }
 public:
     vector<string> generateParenthesis(int n) 
     {
-        n = n*2;
-        generateAllCombination(n-1, "(");
-        return filterValidOnes(allCombination);
+        vector<string> ans;
+        generate(ans,"", n, n);
+        return ans;
     }
 };
