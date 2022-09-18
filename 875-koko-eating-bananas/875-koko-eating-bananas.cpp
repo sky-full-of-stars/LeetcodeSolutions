@@ -54,4 +54,13 @@ public:
 //         }
 //         return lo;
 //     }
+    
+     //Other way is to not worry about choosing mid but reducing both lo and hi
+    // int mid = (lo+hi)/2;
+    // if(valid(..)) { ans = mid; hi = mid-1;}
+    // else {lo = mid+1}
+    // return ans
+    
+    
+    
 };
