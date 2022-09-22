@@ -10,8 +10,21 @@
  * };
  */
 class Solution {
+private:
+    void dfs(TreeNode* root, int level, int &ans)
+    {
+        if(!root)
+        {
+            ans = max(ans, level);
+            return;
+        }
+        dfs(root->left, level+1,ans);
+        dfs(root->right, level+1,ans);
+
+    }
 public:
-    int maxDepth(TreeNode* root)
+    //using BFS
+    int maxDepthBFS(TreeNode* root)
     {
         if(!root)
             return 0;
@@ -42,4 +55,12 @@ public:
         }
         return level;
     }
+    //using DFS
+    int maxDepth(TreeNode* root)
+    {
+        int ans = -1;
+        dfs(root,0,ans);
+        return ans;
+    }
+    
 };
