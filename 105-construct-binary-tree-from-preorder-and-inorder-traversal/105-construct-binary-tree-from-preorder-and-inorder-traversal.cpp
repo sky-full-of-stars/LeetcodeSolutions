@@ -19,6 +19,7 @@ private:
         int rootVal = preorder[cur];
         TreeNode* root = new TreeNode(rootVal);
         
+        //nice time to use pass by reference
         cur++;
         root->left =  assistBuildTree(preorder, inorder, cur, lo, inOrderPos[rootVal]-1);
         root->right=  assistBuildTree(preorder, inorder, cur, inOrderPos[rootVal]+1, hi); 
