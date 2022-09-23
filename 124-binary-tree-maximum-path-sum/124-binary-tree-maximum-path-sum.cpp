@@ -34,14 +34,14 @@ private:
                          max(includeRightOnly, includeLeftOnly)
                         );
         
-        dia = max(dia, curAns);
+        maxSum = max(maxSum, curAns);
         return max(root->val, root->val + max(leftVal, rightVal));
     }
 public:
-    int dia = -1002;
+    int maxSum = -1002;
     int maxPathSum(TreeNode* root)
     {
         height(root);
-        return dia;        
+        return maxSum;        
     }
 };
