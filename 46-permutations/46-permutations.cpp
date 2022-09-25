@@ -8,6 +8,14 @@ private:
             ans.push_back(ds);
             return;
         }
+        /*
+        initially when cur = 0, any element can be first element
+        then after placing some element at 0th idx, 
+        for 1st idx we again can consider n-1 unvisited elements
+        so on...
+        after a dfs path is traversed to take other path ie to consider other options,
+        we need to undo whats done. ie backtrack.
+        */
         for(int i=0; i<nums.size(); i++)
         {
             if(!vis[i])
