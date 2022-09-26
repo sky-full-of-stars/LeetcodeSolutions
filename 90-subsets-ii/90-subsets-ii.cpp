@@ -1,5 +1,6 @@
 class Solution 
 {
+    
 private:
     set<vector<int>> subsetsBitManipulation(vector<int>& nums)
     {
@@ -20,10 +21,29 @@ private:
         }
         return ans;
     }
+    
+    void createSubset(int idx, vector<int> &ds, vector<int> &nums)
+    { 
+        res.push_back(ds);
+        
+        for(int i= idx; i< nums.size(); i++)
+        {
+            if(i != idx and nums[i] == nums[i-1])
+                continue;
+            
+            ds.push_back(nums[i]);
+            createSubset(i+1, ds, nums);
+            ds.pop_back();
+        } 
+    }
+    
+    
 public:
+    int sz;
     set<vector<int>> ans;
     vector<vector<int>> res;
-    vector<vector<int>> subsetsWithDup(vector<int>& nums) 
+    
+    vector<vector<int>> subsetsWithDupBrute(vector<int>& nums) 
     {
         sort(nums.begin(),nums.end());
         
@@ -34,4 +54,16 @@ public:
         
         return res;
     }
+    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) 
+    {
+        sz = nums.size();
+        sort(nums.begin(),nums.end());
+        
+        vector<int> ds;
+        createSubset(0, ds, nums);
+        
+        return res;
+    }
+
 };
