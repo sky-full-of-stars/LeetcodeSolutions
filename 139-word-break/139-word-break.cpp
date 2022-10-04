@@ -3,19 +3,16 @@ class Solution
 private:
     bool util(string &s)
     {
-        if(dp[s] != 0)
+        //if already calculated before, return ans
+        if(dp.find(s) != dp.end())
         {
-            if(dp[s] == 1)
-                return true;
-            else
-                return false;
+            return dp[s];
         }
         
-        //cout<<s<<endl;
+        //if string exists in dictionary return true
         if(dictMap[s])
         {
-            dp[s] = 1;
-            return true;
+            return dp[s] = true;
         }
         
         int n = s.length();
@@ -23,17 +20,17 @@ private:
         {
             string prefix = s.substr(0, i+1);
             string suffix = s.substr(i+1, n-i-1);
-            //cout<<prefix<<" "<<suffix<<endl;
-            if(dictMap[prefix])
+            
+            if(dictMap[prefix]) // for a valid prefix
             {
-                //cout<<"prefix found, calling recursion for suffix"<<endl;
-                if(util(suffix))
+                if(util(suffix)) // lets search if valid wordBreak suffix exists
                 {
                     ans = true;
                 }
             }
         }
-        dp[s] = ans? 1:2;
+        
+        dp[s] = ans;
         return ans;
     }
 public:
@@ -41,6 +38,7 @@ public:
     bool ans = false;
     int n;
     map<string, int> dp;
+    
     bool wordBreak(string s, vector<string>& wordDict) 
     {
         n = s.length();
