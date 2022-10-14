@@ -23,3 +23,14 @@ public:
         return res;
     }
 };
+
+/*
+Also see, 
+
+prob: https://leetcode.com/problems/meeting-rooms/
+soln: https://www.lintcode.com/submission/30207314/?action_type=1
+
+prob: https://leetcode.com/problems/meeting-rooms-ii/
+soln: https://www.lintcode.com/submission/30212052/?action_type=1
+
+*/
