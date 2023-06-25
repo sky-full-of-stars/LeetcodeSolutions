@@ -17,6 +17,6 @@ public:
         {
             return moves(nums[n/2], nums);
         }    
-        return min(moves(nums[n/2],nums), moves(nums[n/2-1],nums));
+        return min(moves(nums[n/2],nums),INT_MAX);
     }
 };
