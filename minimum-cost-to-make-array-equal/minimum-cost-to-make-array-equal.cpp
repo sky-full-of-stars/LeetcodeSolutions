@@ -82,15 +82,46 @@ private:
     }
     //---------------------------------------------------------------------------------------------//
     
-    long long solveUsingPrefixSums(vector<int>& nums, vector<int>& cost)
+    long long solveUsingPrefixSumsDP(vector<int>& nums, vector<int>& cost)
     {
-        return 0;
+        int n = nums.size();
+
+        vector<pair<int,int>> vpi;
+        for(int i=0; i<n; i++)
+        {
+            vpi.push_back({nums[i], cost[i]});
+        }
+        sort(vpi.begin(), vpi.end());
+
+        vector<long long> prefixSums(n);
+        prefixSums[0] = vpi[0].second;
+        for(int i=1; i<n; i++)
+        {
+            prefixSums[i] = prefixSums[i-1]+vpi[i].second;
+        }
+
+        vector<long long> dp(n,0);
+        for(int i=1; i<n; i++)
+        {
+            dp[0] = dp[0] + (1ll* vpi[i].second * abs(vpi[i].first- vpi[0].first));
+        }
+        for(int i=1; i<n; i++)
+        {
+            int gap = vpi[i].first - vpi[i-1].first;
+            dp[i] = dp[i-1] 
+                    + (prefixSums[i-1]* gap)
+                    - (prefixSums[n-1]- prefixSums[i-1])*gap;
+        }
+        //note that to calc dp[i] we only need dp[i-1]
+        //so space complexity can be reduced to O(1)
+        //but not doing it for readability.
+        return *min_element(dp.begin(), dp.end());
     }
 
 public:
     long long minCost(vector<int>& nums, vector<int>& cost) 
     {
-        int random = 1; //rand()%3;
+        int random = 2; //rand()%3;
         if(random == 0)
         {
             return solveUsingWeightedMedian(nums, cost);
@@ -101,7 +132,7 @@ public:
         }
         if(random == 2)
         {
-            return solveUsingPrefixSums(nums, cost);
+            return solveUsingPrefixSumsDP(nums, cost);
         }
         return 0;
     }
