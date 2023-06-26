@@ -1,7 +1,7 @@
 class Solution 
 {
 private:
-    //-----------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
     int getMedian(vector<pair<long long,long long>>& v)
     {
         long long sz = 0ll;
@@ -41,12 +41,47 @@ private:
         int median = getMedian(v);
         return getCost(v, median);
     }
-    //-----------------------------------------------------------------------//
+
+    //---------------------------------------------------------------------------------------------//
+    long long getCost(vector<int>& nums, vector<int>& cost, int convertAllTo)
+    {
+        long long totCost = 0l;
+        for(int i=0; i<nums.size(); i++)
+        {
+            totCost = totCost + (1LL*cost[i]*(abs(nums[i]-convertAllTo)));
+        }
+        return totCost;
+    }
+    // I wouldnt call it ternary search only coz, 
+    // we are not technically dividing array into 3 search fragments and discarding 2
     long long solveUsingBinarySearchOnConvexFunction(vector<int>& nums, vector<int>& cost)
     {
-        return 0;
-    }
+        int l = *min_element(nums.begin(), nums.end());
+        int r = *max_element(nums.begin(), nums.end());
 
+        // while making bold assumptions like this,
+        // make sure we'll get right answer for corner cases,
+        // ie when array has 0 or 1 or 2 or 3 or 4 elements.
+        long long ans = LLONG_MAX;
+        while(l <= r)
+        {
+            int mid1 = (l+r)/2;
+            int mid2 = mid1+1;
+            
+            long long cost1 = getCost(nums, cost, mid1);
+            long long cost2 = getCost(nums, cost, mid2);
+
+            ans = min(cost1, cost2);
+
+            if(cost1 > cost2)
+                l = mid1+1;
+            else
+                r = mid1-1;    
+        }
+        return ans;
+    }
+    //---------------------------------------------------------------------------------------------//
+    
     long long solveUsingPrefixSums(vector<int>& nums, vector<int>& cost)
     {
         return 0;
@@ -55,7 +90,7 @@ private:
 public:
     long long minCost(vector<int>& nums, vector<int>& cost) 
     {
-        int random = 0; //rand()%3;
+        int random = 1; //rand()%3;
         if(random == 0)
         {
             return solveUsingWeightedMedian(nums, cost);
