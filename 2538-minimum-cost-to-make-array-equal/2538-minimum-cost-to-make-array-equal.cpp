@@ -1,9 +1,7 @@
 class Solution 
 {
 private:
-
-    //WEIGHTED MEDIAN SOLUTION
-    //------------------------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
     int getMedian(vector<pair<long long,long long>>& v)
     {
         long long sz = 0ll;
@@ -44,11 +42,7 @@ private:
         return getCost(v, median);
     }
 
-
-
-
-    //BINARY SEARCH ON CONVEX FUNCTION SOLUTION
-    //------------------------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
     long long getCost(vector<int>& nums, vector<int>& cost, int convertAllTo)
     {
         long long totCost = 0l;
@@ -86,12 +80,8 @@ private:
         }
         return ans;
     }
-
-
-
-
-    //PREFIX SUM DP SOLUTION
-    //------------------------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
+    
     long long solveUsingPrefixSumsDP(vector<int>& nums, vector<int>& cost)
     {
         int n = nums.size();
@@ -127,11 +117,7 @@ private:
         //but not doing it for readability.
         return *min_element(dp.begin(), dp.end());
     }
-    //-----------------------------------------------------------------------------------------------------------------------------//
-
-
-
-
+    //---------------------------------------------------------------------------------------------//
 public:
     long long minCost(vector<int>& nums, vector<int>& cost) 
     {
