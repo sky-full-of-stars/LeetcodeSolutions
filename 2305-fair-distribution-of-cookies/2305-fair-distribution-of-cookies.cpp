@@ -11,7 +11,7 @@ public:
             return;
         }
         
-        for(int kid=0; kid<k; kid++)
+        for(int kid=0; kid<(k+1/2); kid++)
         {
             sums[kid] += cookies[cookieNo];
             int curUnfairness = max(unfairness, sums[kid]);
